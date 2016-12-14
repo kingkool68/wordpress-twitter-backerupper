@@ -14,3 +14,5 @@ A WordPress plugin to backup your tweets and media on a site you can control.
 1. Download this plugin to your `/wp-content/plugins/` directory
 2. Activate the plugin
 3. Visit *Settings* --> *Twitter Settings* and follow the instructions for creating a new Twitter app 
+
+*Inspired by the [Ozh' Tweet Archiver plugin](https://github.com/ozh/ozh-tweet-archiver)*
