@@ -48,12 +48,8 @@ class Tweet_Archiver_Importer extends WP_Importer {
 
 		switch ( $step ) {
 			case 0 :
-				// $this->cleanup_previous_import_files();
-				// $this->greet();
-
-				$this->test();
-				// $this->prepare_filenames();
-				// $this->show_post_upload_screen();
+				$this->cleanup_previous_import_files();
+				$this->greet();
 			break;
 			case 1 :
 				check_admin_referer('import-upload');
@@ -276,96 +272,6 @@ class Tweet_Archiver_Importer extends WP_Importer {
 			return NULL;
 		}
 		return ( count( scandir( $dir ) ) == 2 );
-	}
-
-	public function test() {
-		// $this->test_import_api_tweets();
-		// $this->test_import_archive_js();
-		$this->test_import_latest_tweets();
-		// $this->test_detailed_user_refresh();
-	}
-
-	public function test_import_archive_js() {
-		$file_name = '2016_08.js';
-		$path = $this->upload_destination . 'data/js/tweets/' . $file_name;
-		$full_file = file_get_contents( $path );
-		$json_string = substr( $full_file, strpos( $full_file, "\n" ) + 1 );
-		$json_payload = json_decode( $json_string );
-		// $json_payload = array_slice( $json_payload, 0, 200 );
-
-		foreach ( $json_payload as $index => $tweet ) {
-			$tweet_import = new Tweet_Archiver_Import_Tweet( $tweet );
-			$tweet_import->save();
-		}
-		echo 'done!';
-		return;
-
-		// For 2011_10.js
-		$examples = array(
-			'Retweet' => 4,
-			'Reply' => 0,
-			'URL' => 12,
-		);
-
-		// For 2016_08.js
-		$examples = array(
-			'Image' => 15,
-			'Video' => 10,
-			'GIF' => 53,
-		);
-		foreach ( $examples as $label => $i ) {
-			// $tweet = new Tweet_Archiver_Import_Tweet( $json_payload[ $i ] );
-			// $tweet->save();
-			echo '<h2>' . $label . '</h2>';
-
-			echo '<xmp>';
-			var_dump( $json_payload[ $i ] );
-			echo '</xmp>';
-		}
-
-		// echo '<xmp>';
-		// var_dump( $json_payload );
-		// echo '</xmp>';
-	}
-
-	public function test_import_api_tweets() {
-		// App credentials
-		// (must be in this order)
-		$app = array(
-			'consumer_key' => 'iimTLSxrnjtNO5M7XOJr9lDdV',
-			'consumer_secret' => '2vfK9amYVLUEFe9xuF8JMeIlWuHxW6z2ajVKSG3zgCSeRk35xg',
-			'access_token' => '64833-Rmh5dh1SYqD8ZpZeT2aQA4akY3aV1la27PV4pUOpH5NN',
-			'access_token_secret' => 'Pgg3Za3RRRkFBZDe2gbX3Ef5GSXPNgdrVlNBqNESlx1pQ',
-		);
-		$tw = TwitterWP::start( $app );
-		// $tweets = $tw->get_tweets( $user = 'kingkool68', $count = 40 );
-		$args = array(
-			'screen_name' => 'kingkool68',
-			'contributor_details' => true,
-			'include_rts' => 1,
-			'exclude_replies' => false,
-			'since_id' => '782749516361568256',
-		);
-		$tweets = $tw->token_endpoint( 'statuses/user_timeline.json', $args );
-
-		foreach ( $tweets as $tweet ) {
-			$tweet_import = new Tweet_Archiver_Import_Tweet( $tweet );
-			$tweet_import->save();
-		}
-
-	}
-
-	public function test_detailed_media_refresh() {
-		Tweet_Archiver_Import_Tweet::download_detailed_media();
-	}
-
-	public function test_detailed_user_refresh() {
-		Tweet_Archiver_Import_Tweet::download_detailed_users();
-	}
-
-	public function test_import_latest_tweets() {
-		$obj = new Tweet_Archiver_API_Fetcher;
-		$obj->import_the_latest_tweets();
 	}
 
 }
