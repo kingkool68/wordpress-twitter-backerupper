@@ -1080,6 +1080,7 @@ class Tweet_Archiver_Import_Tweet {
 		$args = array(
 			'id' => $id_str,
 			'include_entities' => true,
+			'tweet_mode' => 'extended',
 		);
 		$tweets = $tw->token_endpoint( 'statuses/lookup.json', $args );
 		foreach ( $tweets as $tweet ) {

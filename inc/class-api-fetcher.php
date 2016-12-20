@@ -46,6 +46,7 @@ class Tweet_Archiver_API_Fetcher {
 			'exclude_replies' => false,
 			'include_rts' => true,
 			'count' => 200, // Max 200
+			'tweet_mode' => 'extended',
 		);
 		while ( $continue_fetching ) {
 			$tweets = $tw->token_endpoint( 'statuses/user_timeline.json', $args );
@@ -89,6 +90,7 @@ class Tweet_Archiver_API_Fetcher {
 			'id' => $id_str,
 			'include_entities' => true,
 			'trim_user' => false,
+			'tweet_mode' => 'extended',
 		);
 		$tweets = $tw->token_endpoint( 'statuses/lookup.json', $args );
 		if ( is_wp_error( $tweets ) ) {
