@@ -424,6 +424,10 @@ class Tweet_Archiver_Content_Types {
 			return $description;
 		}
 
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return $description;
+		}
+
 		$screen = get_current_screen();
 		if ( ! $screen || $screen->id != 'edit-tweet-link' ) {
 			return $description;
