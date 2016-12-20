@@ -348,6 +348,10 @@ class Tweet_Archiver_Content_Types {
 	}
 
 	public static function setup_tweet_terms() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+
 		// This should only fire on the plugin.php screen
 		$screen = get_current_screen();
 		if ( $screen->base != 'plugins' ) {
