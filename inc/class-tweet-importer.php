@@ -147,11 +147,17 @@ class Tweet_Archiver_Import_Tweet {
 
 	public function get_tweet_text() {
 		$tweet = $this->get_tweet();
+		if ( isset( $tweet->full_text ) ) {
+			return trim( $tweet->full_text );
+		}
 		return trim( $tweet->text );
 	}
 
 	public function get_retweet_text() {
 		if ( $rt = $this->get_retweet() ) {
+			if ( isset( $tweet->full_text ) ) {
+				return trim( $tweet->full_text );
+			}
 			return trim( $rt->text );
 		}
 		return false;
