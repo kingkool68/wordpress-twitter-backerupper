@@ -155,8 +155,8 @@ class Tweet_Archiver_Import_Tweet {
 
 	public function get_retweet_text() {
 		if ( $rt = $this->get_retweet() ) {
-			if ( isset( $tweet->full_text ) ) {
-				return trim( $tweet->full_text );
+			if ( isset( $rt->full_text ) ) {
+				return trim( $rt->full_text );
 			}
 			return trim( $rt->text );
 		}
